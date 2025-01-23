@@ -46,12 +46,10 @@ import java.util.concurrent.CompletableFuture
 import kotlin.coroutines.CoroutineContext
 
 @Command("humanoid")
-class TestCommand(val instance: Humanoid) {
-
-    val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+public class TestCommand(public val instance: Humanoid) {
 
     @Command("spawn")
-    fun spawnNPC(player: Player) {
+    public fun spawnNPC(player: Player) {
         val npcAccount = NPCAccount("Notch", UUID.randomUUID())
         val npcParameters = NPCParameters.withDefault(npcAccount, player.location).copy(
             shouldGlow = true,
@@ -66,7 +64,7 @@ class TestCommand(val instance: Humanoid) {
     }
 
     @Command("pathfind")
-    suspend fun pathfindNPC(player: Player, name: String) {
+    public suspend fun pathfindNPC(player: Player, name: String) {
         val npc = instance.loader.npcManager.getNPCByName(name) ?: return
         val startLocation = npc.getLocation()
         val endLocation = player.location

@@ -27,7 +27,7 @@ package lol.simeon.humanoid.api
 import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 
-data class NPCAttributes(
+public data class NPCAttributes(
     val pose: NPCPose = NPCPose.STANDING,
     val equipment: Map<EquipmentSlot, ItemStack> = emptyMap()
 )

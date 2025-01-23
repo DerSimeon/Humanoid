@@ -24,7 +24,7 @@
 
 package lol.simeon.humanoid.api
 
-enum class NPCInteractAction {
+public enum class NPCInteractAction {
     LEFT,
     RIGHT,
     PLUGIN,

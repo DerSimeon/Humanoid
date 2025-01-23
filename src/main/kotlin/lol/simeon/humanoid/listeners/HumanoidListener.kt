@@ -28,7 +28,7 @@ import lol.simeon.humanoid.Humanoid
 import org.bukkit.Bukkit
 import org.bukkit.event.Listener
 
-open class HumanoidListener(instance: Humanoid) : Listener {
+public open class HumanoidListener(instance: Humanoid) : Listener {
     
     init {
         Bukkit.getPluginManager().registerEvents(this, instance)

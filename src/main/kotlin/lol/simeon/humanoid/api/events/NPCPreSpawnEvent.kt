@@ -27,4 +27,4 @@ package lol.simeon.humanoid.api.events
 import lol.simeon.humanoid.npc.HumanoidNPC
 import org.bukkit.entity.Player
 
-class NPCPreSpawnEvent(val npc: HumanoidNPC, val player: Player) : CancellableKEvent() 
+public class NPCPreSpawnEvent(public val npc: HumanoidNPC, public val player: Player) : CancellableKEvent() 

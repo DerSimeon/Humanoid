@@ -26,7 +26,7 @@ package lol.simeon.humanoid.api
 
 import java.util.UUID
 
-data class NPCAccount(
+public data class NPCAccount(
     val name: String,
     val uuid: UUID
 )

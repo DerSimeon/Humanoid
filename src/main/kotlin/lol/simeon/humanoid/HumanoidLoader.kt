@@ -33,20 +33,20 @@ import lol.simeon.humanoid.listeners.NPCDamageHandler
 import lol.simeon.humanoid.npc.NPCManager
 import org.bukkit.command.CommandSender
 
-class HumanoidLoader(private val instance: Humanoid) {
+public class HumanoidLoader(private val instance: Humanoid) {
 
-    val npcManager = NPCManager()
+    public val npcManager: NPCManager = NPCManager()
     private val bukkitCommandManager: BukkitCommandManager<CommandSender> = BukkitCommandManager.create(instance) {builder ->
         builder.extensions(ExtensionBuilder<CommandSender, CommandSender>::useCoroutines)
     }
 
-    fun initLoader() {
+    public fun initLoader() {
         bukkitCommandManager.registerCommand(TestCommand(instance))
         NPCDamageHandler(instance)
         BukkitNPCInteractEvent(instance)
     }
 
-    fun shutdownLoader() {
+    public fun shutdownLoader() {
         this.npcManager.shutdown()
     }
 }

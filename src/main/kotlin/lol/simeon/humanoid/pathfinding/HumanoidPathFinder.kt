@@ -31,7 +31,7 @@ import org.bukkit.util.Vector
 import java.util.*
 import kotlin.math.abs
 
-class HumanoidPathFinder(private val world: String) {
+public class HumanoidPathFinder(private val world: String) {
 
     private val directions = listOf(
         Vector( 1.0, 0.0, 0.0),  // East
@@ -40,7 +40,7 @@ class HumanoidPathFinder(private val world: String) {
         Vector( 0.0, 0.0, -1.0)  // North
     )
 
-    suspend fun findPathAsync(start: Location, end: Location): HumanoidPathFindingResult {
+    public suspend fun findPathAsync(start: Location, end: Location): HumanoidPathFindingResult {
         return withContext(Dispatchers.Default) {
             val openSet = PriorityQueue<HumanoidNode>(compareBy { it.fCost })
             val closedSet = mutableSetOf<Location>()

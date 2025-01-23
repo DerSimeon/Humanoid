@@ -26,7 +26,7 @@ package lol.simeon.humanoid.pathfinding
 
 import org.bukkit.Location
 
-data class HumanoidPathFindingResult(
+public data class HumanoidPathFindingResult(
     val state: HumanoidPathFindingState,
     val path: List<Location> = emptyList()
 )

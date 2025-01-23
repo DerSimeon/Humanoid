@@ -26,10 +26,10 @@ package lol.simeon.humanoid.api.events
 
 import org.bukkit.event.Cancellable
 
-open class CancellableKEvent : KEvent(), Cancellable {
+public open class CancellableKEvent : KEvent(), Cancellable {
     private var isCancelled = false
 
     override fun isCancelled(): Boolean = isCancelled
 
-    override fun setCancelled(cancel: Boolean) = run { isCancelled = cancel }
+    override fun setCancelled(cancel: Boolean): Unit = run { isCancelled = cancel }
 }

@@ -61,6 +61,7 @@ dependencies {
 
 kotlin {
     jvmToolchain(21)
+    explicitApi()
 }
 
 
@@ -104,12 +105,4 @@ dokka {
     pluginsConfiguration.html {
         footerMessage.set("(c) 2025 Simeon L.")
     }
-}
-
-tasks.withType(WriteDependencySet::class) {
-    this.notCompatibleWithConfigurationCache("WriteDependencySet is not compatible with configuration cache")
-}
-
-tasks.withType<WriteDependencySet> {
-    notCompatibleWithConfigurationCache("WriteDependencySet is not compatible with configuration cache")
 }

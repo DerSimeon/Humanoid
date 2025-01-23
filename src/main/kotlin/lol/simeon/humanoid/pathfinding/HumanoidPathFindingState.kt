@@ -24,6 +24,6 @@
 
 package lol.simeon.humanoid.pathfinding
 
-enum class HumanoidPathFindingState {
+public enum class HumanoidPathFindingState {
     IDLE, PATH_FINDING, COMPLETED, FAILED
 }

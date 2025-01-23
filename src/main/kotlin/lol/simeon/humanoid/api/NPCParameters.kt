@@ -27,7 +27,7 @@ package lol.simeon.humanoid.api
 import net.kyori.adventure.text.format.NamedTextColor
 import org.bukkit.Location
 
-data class NPCParameters(
+public data class NPCParameters(
     val npcAccount: NPCAccount,
     val location: Location,
     val showInTab: Boolean = true,
@@ -39,7 +39,7 @@ data class NPCParameters(
     val canTakeDamage: Boolean = true,
     val interactionCooldown: Long = 0L,
 ) {
-    companion object {
-        fun withDefault(npcAccount: NPCAccount, location: Location): NPCParameters = NPCParameters(npcAccount, location)
+    public companion object {
+        public fun withDefault(npcAccount: NPCAccount, location: Location): NPCParameters = NPCParameters(npcAccount, location)
     }
 }

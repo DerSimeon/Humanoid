@@ -32,9 +32,9 @@ import java.util.logging.Logger
 import java.util.logging.SimpleFormatter
 
 
-class HumanoidLogger {
+public class HumanoidLogger {
 
-    companion object {
+    public companion object {
         private val logger: Logger = Logger.getLogger("HumanoidLogger")
 
         init {
@@ -45,23 +45,23 @@ class HumanoidLogger {
             logger.level = Level.ALL
         }
 
-        fun info(var1: String) {
+        public fun info(var1: String) {
             print(format("INFO", "&7$var1&r"))
         }
 
-        fun warn(var1: String) {
+        public fun warn(var1: String) {
             print(format("WARNING", "&6$var1&r"))
         }
 
-        fun error(var1: String) {
+        public fun error(var1: String) {
             print(format("SEVERE", "&4$var1&r"))
         }
 
-        fun debug(var1: String?) {
+        public fun debug(var1: String?) {
             print(format("DEBUG", var1!!))
         }
 
-        fun success(var1: String) {
+        public fun success(var1: String) {
             print(format("FINEST", "&a$var1&r"))
         }
 

@@ -32,7 +32,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import lol.simeon.humanoid.console.HumanoidLogger
 
 @Suppress("UnstableApiUsage", "unused")
-class HumanoidPluginBootstrapper : PluginBootstrap {
+public class HumanoidPluginBootstrapper : PluginBootstrap {
     
     override fun bootstrap(bootstrapContext: BootstrapContext) {
         System.setProperty(

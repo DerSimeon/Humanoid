@@ -26,9 +26,8 @@ package lol.simeon.humanoid.npc.network
 
 import net.minecraft.network.Connection
 import net.minecraft.network.protocol.PacketFlow
-import org.apache.logging.log4j.core.net.SocketAddress
 
-class EmptyConnection(val flow: PacketFlow) : Connection(flow) {
+public class EmptyConnection(flow: PacketFlow) : Connection(flow) {
     
     init {
         channel = EmptyChannel(null)

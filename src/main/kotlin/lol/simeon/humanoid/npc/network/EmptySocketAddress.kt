@@ -26,6 +26,6 @@ package lol.simeon.humanoid.npc.network
 
 import java.net.SocketAddress
 
-class EmptySocketAddress : SocketAddress() {
+public class EmptySocketAddress : SocketAddress() {
     private val serialVersionUID = 8207338859896320185L
 }

@@ -27,10 +27,6 @@ package lol.simeon.humanoid.npc
 import com.mojang.authlib.GameProfile
 import com.mojang.datafixers.util.Pair
 import io.papermc.paper.adventure.PaperAdventure
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import lol.simeon.humanoid.Humanoid
 import lol.simeon.humanoid.api.NPCInteractAction
 import lol.simeon.humanoid.api.NPCParameters
 import lol.simeon.humanoid.api.events.NPCInteractEvent
@@ -43,6 +39,7 @@ import net.minecraft.Optionull
 import net.minecraft.network.chat.RemoteChatSession
 import net.minecraft.network.protocol.PacketFlow
 import net.minecraft.network.protocol.game.*
+import net.minecraft.server.level.ClientInformation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.network.CommonListenerCookie
 import net.minecraft.world.entity.Display
@@ -55,20 +52,18 @@ import net.minecraft.world.scores.Scoreboard
 import net.minecraft.world.scores.Team
 import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.World
 import org.bukkit.craftbukkit.CraftServer
 import org.bukkit.craftbukkit.CraftWorld
 import org.bukkit.craftbukkit.entity.CraftPlayer
 import org.bukkit.craftbukkit.inventory.CraftItemStack
 import org.bukkit.entity.Player
 import java.util.*
-import kotlin.time.TestTimeSource
 
-class HumanoidNPC(val npcParameters: NPCParameters) : ServerPlayer(
+public class HumanoidNPC(public val npcParameters: NPCParameters) : ServerPlayer(
     (Bukkit.getServer() as CraftServer).server,
     (npcParameters.location.world as CraftWorld).handle,
     GameProfile(npcParameters.npcAccount.uuid, ""),
-    HumanoidClientInformation.DEFAULT_CLIENT_INFORMATION
+    ClientInformation.createDefault()
 ) {
     private val miniMessage by lazy { MiniMessage.miniMessage() }
     private val visibleFor = mutableSetOf<UUID>()
@@ -83,7 +78,7 @@ class HumanoidNPC(val npcParameters: NPCParameters) : ServerPlayer(
         initNetwork()
     }
 
-    fun spawnFor(player: Player) {
+    public fun spawnFor(player: Player) {
         val serverPlayer = (player as CraftPlayer).handle
 
         if (serverPlayer.level().world.name != npcParameters.location.world.name) {
@@ -109,7 +104,7 @@ class HumanoidNPC(val npcParameters: NPCParameters) : ServerPlayer(
         updateNPC(player)
     }
 
-    fun despawn(player: Player) {
+    public fun despawn(player: Player) {
         val serverPlayer = (player as CraftPlayer).handle
 
         if (serverPlayer.level().world.name != npcParameters.location.world.name) {
@@ -179,7 +174,7 @@ class HumanoidNPC(val npcParameters: NPCParameters) : ServerPlayer(
         move(player, true)
     }
 
-    fun move(player: Player, swingArm: Boolean) {
+    private fun move(player: Player, swingArm: Boolean) {
         val serverPlayer = (player as CraftPlayer).handle
 
         setPosRaw(this.location.x, this.location.y, this.location.z)
@@ -274,9 +269,9 @@ class HumanoidNPC(val npcParameters: NPCParameters) : ServerPlayer(
         player.connection.send(ClientboundPlayerInfoUpdatePacket(actions, getEntry(this)))
     }
 
-    fun handleInteract(player: Player) = handleInteract(player, NPCInteractAction.PLUGIN)
+    public fun handleInteract(player: Player): Unit = handleInteract(player, NPCInteractAction.PLUGIN)
 
-    fun handleInteract(player: Player, npcInteractAction: NPCInteractAction) {
+    public fun handleInteract(player: Player, npcInteractAction: NPCInteractAction) {
         if (npcParameters.interactionCooldown > 0) {
             val cooldownMillis = npcParameters.interactionCooldown * 1000
             val lastInteractionMillis = lastPlayerInteraction
@@ -300,15 +295,15 @@ class HumanoidNPC(val npcParameters: NPCParameters) : ServerPlayer(
         HumanoidLogger.info("Interact Event")
     }
 
-    fun getLocation(): Location = location
+    public fun getLocation(): Location = location
 
-    fun setLocation(x: Double, y: Double, z: Double) {
+    public fun setLocation(x: Double, y: Double, z: Double) {
         setPos(x, y, z)
         location = location.clone().set(x, y, z)
         sendLocationUpdate()
     }
 
-    fun setRotation(yaw: Float, pitch: Float) {
+    public fun setRotation(yaw: Float, pitch: Float) {
         setRot(yaw, pitch)
         location = location.clone().setRotation(yaw, pitch)
         sendLocationUpdate()

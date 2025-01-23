@@ -28,5 +28,9 @@ import lol.simeon.humanoid.npc.HumanoidNPC
 import org.bukkit.damage.DamageSource
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause
 
-class NPCDamageEvent(val damageSource: DamageSource, val damageCause: DamageCause, val npc: HumanoidNPC) : CancellableKEvent() {
+public class NPCDamageEvent(
+    public val damageSource: DamageSource,
+    public val damageCause: DamageCause,
+    public val npc: HumanoidNPC
+) : CancellableKEvent() {
 }

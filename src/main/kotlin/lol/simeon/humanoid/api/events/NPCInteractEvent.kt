@@ -28,4 +28,4 @@ import lol.simeon.humanoid.api.NPCInteractAction
 import lol.simeon.humanoid.npc.HumanoidNPC
 import org.bukkit.entity.Player
 
-class NPCInteractEvent(val npc: HumanoidNPC, val player: Player, action: NPCInteractAction) : CancellableKEvent() 
+public class NPCInteractEvent(public val npc: HumanoidNPC, public val player: Player, action: NPCInteractAction) : CancellableKEvent() 

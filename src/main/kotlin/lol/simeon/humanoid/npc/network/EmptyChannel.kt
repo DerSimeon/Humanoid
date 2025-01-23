@@ -27,7 +27,7 @@ package lol.simeon.humanoid.npc.network
 import io.netty.channel.*
 import java.net.SocketAddress
 
-class EmptyChannel(private val parent: Channel?) : AbstractChannel(parent) {
+public class EmptyChannel(private val parent: Channel?) : AbstractChannel(parent) {
 
     private val config = DefaultChannelConfig(this)
 

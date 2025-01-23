@@ -27,9 +27,9 @@ package lol.simeon.humanoid
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 
-class Humanoid : JavaPlugin() {
+public class Humanoid : JavaPlugin() {
 
-    val loader = HumanoidLoader(this)
+    public val loader: HumanoidLoader = HumanoidLoader(this)
 
     override fun onEnable() {
         this.loader.initLoader()
@@ -40,6 +40,6 @@ class Humanoid : JavaPlugin() {
     }
 }
 
-fun runInSync(instance: Humanoid, runnable: Runnable) {
+public fun runInSync(instance: Humanoid, runnable: Runnable) {
     Bukkit.getScheduler().runTask(instance, runnable)
 }

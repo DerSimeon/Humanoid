@@ -25,13 +25,12 @@
 package lol.simeon.humanoid.npc.network
 
 import net.minecraft.network.Connection
-import net.minecraft.network.protocol.game.ServerGamePacketListener
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.server.network.CommonListenerCookie
 import net.minecraft.server.network.ServerGamePacketListenerImpl
 
-class EmptyPacketListener(
+public class EmptyPacketListener(
     minecraftServer: MinecraftServer,
     networkManager: Connection,
     entityPlayer: ServerPlayer,

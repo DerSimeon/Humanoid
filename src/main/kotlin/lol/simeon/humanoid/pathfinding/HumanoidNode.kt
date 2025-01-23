@@ -26,11 +26,11 @@ package lol.simeon.humanoid.pathfinding
 
 import org.bukkit.Location
 
-data class HumanoidNode(
+public data class HumanoidNode(
     val location: Location,
     val gCost: Double,
     val hCost: Double,
     val parent: HumanoidNode? = null
 ) {
-    val fCost by lazy { gCost + hCost }
+    val fCost: Double by lazy { gCost + hCost }
 }

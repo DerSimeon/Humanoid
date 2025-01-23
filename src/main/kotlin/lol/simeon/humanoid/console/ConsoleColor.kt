@@ -29,7 +29,7 @@ import java.awt.Color
 import java.lang.String.valueOf
 import java.util.regex.Pattern
 
-enum class ConsoleColor(val nameColor: String, val index: Char, private val ansi: String) {
+public enum class ConsoleColor(public val nameColor: String, public val index: Char, private val ansi: String) {
     BLACK("black", '0', Ansi.ansi().reset().fg(Ansi.Color.BLACK).toString()),
     DARK_BLUE("dark_blue", '1', Ansi.ansi().reset().fg(Ansi.Color.BLUE).toString()),
     GREEN("green", '2', Ansi.ansi().reset().fg(Ansi.Color.GREEN).toString()),
@@ -58,12 +58,12 @@ enum class ConsoleColor(val nameColor: String, val index: Char, private val ansi
         return this.ansi
     }
 
-    companion object {
-        private val VALUES = ConsoleColor.values()
+    public companion object {
+        private val VALUES = entries.toTypedArray()
         private const val LOOKUP: String = "0123456789abcdefklmnor"
         private const val RGB_ANSI: String = "\u001B[38;2;%d;%d;%dm"
 
-        fun toColouredString(triggerChar: Char, text: String): String {
+        public fun toColouredString(triggerChar: Char, text: String): String {
             val content = convertRGBColors(triggerChar, text)
 
             var breakIndex = content.length - 1

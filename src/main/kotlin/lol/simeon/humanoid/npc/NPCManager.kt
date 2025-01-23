@@ -27,15 +27,15 @@ package lol.simeon.humanoid.npc
 import net.minecraft.world.entity.Entity
 import org.bukkit.Bukkit
 
-class NPCManager {
+public class NPCManager {
 
     private val npcs = mutableListOf<HumanoidNPC>()
 
-    fun storeNPC(npc: HumanoidNPC) {
+    public fun storeNPC(npc: HumanoidNPC) {
         npcs.add(npc)
     }
 
-    fun shutdown() {
+    public fun shutdown() {
         npcs.forEach {
             for (onlinePlayer in Bukkit.getOnlinePlayers()) {
                 it.despawn(onlinePlayer)
@@ -44,11 +44,11 @@ class NPCManager {
         }
     }
     
-    fun getNPCByEntityID(id: Int): HumanoidNPC? {
+    public fun getNPCByEntityID(id: Int): HumanoidNPC? {
         return npcs.firstOrNull { it.id == id}
     }
     
-    fun getNPCByName(name: String): HumanoidNPC? {
+    public fun getNPCByName(name: String): HumanoidNPC? {
         return npcs.firstOrNull { it.npcParameters.npcAccount.name == name}
     }
 }

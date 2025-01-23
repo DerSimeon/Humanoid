@@ -33,10 +33,10 @@ import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.entity.EntityDamageEvent
 
-class NPCDamageHandler(private val instance: Humanoid) : HumanoidListener(instance) {
+public class NPCDamageHandler(private val instance: Humanoid) : HumanoidListener(instance) {
 
     @EventHandler
-    fun onDamage(entityDamageEvent: EntityDamageEvent) {
+    public fun onDamage(entityDamageEvent: EntityDamageEvent) {
         if (entityDamageEvent.entity is Player) {
             val serverPlayer = (entityDamageEvent.entity as CraftPlayer).handle
             if (serverPlayer is HumanoidNPC) {

@@ -26,15 +26,13 @@ package lol.simeon.humanoid.npc
 
 import lol.simeon.humanoid.Humanoid
 import lol.simeon.humanoid.console.HumanoidLogger
-import net.minecraft.network.protocol.game.ClientboundMoveEntityPacket
 import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.craftbukkit.entity.CraftPlayer
 import org.bukkit.scheduler.BukkitTask
 import java.util.concurrent.CompletableFuture
 import kotlin.math.atan2
 
-class HumanoidPathPlayer(private val instance: Humanoid, val npc: HumanoidNPC, val path: List<Location>) {
+public class HumanoidPathPlayer(private val instance: Humanoid, public val npc: HumanoidNPC, public val path: List<Location>) {
     private var currentFrame: Location? = null
     private var currentFrameIndex = 0
     private var playing: Boolean = false
@@ -43,7 +41,7 @@ class HumanoidPathPlayer(private val instance: Humanoid, val npc: HumanoidNPC, v
 
     private val future: CompletableFuture<Unit> = CompletableFuture()
 
-    fun play(): CompletableFuture<Unit> {
+    public fun play(): CompletableFuture<Unit> {
         currentFrame = path[0]
         playing = true
         bukkitTask = Bukkit.getScheduler().runTaskTimer(instance, Runnable {
@@ -63,7 +61,7 @@ class HumanoidPathPlayer(private val instance: Humanoid, val npc: HumanoidNPC, v
         playing = false
     }
 
-    fun next(): Boolean {
+    public fun next(): Boolean {
         if (currentFrameIndex >= path.size) {
             return false
         }

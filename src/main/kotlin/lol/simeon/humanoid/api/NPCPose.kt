@@ -24,7 +24,7 @@
 
 package lol.simeon.humanoid.api
 
-enum class NPCPose {
+public enum class NPCPose {
     
     STANDING, SITTING
 }

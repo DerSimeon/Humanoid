@@ -31,10 +31,10 @@ import org.bukkit.event.EventHandler
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.inventory.EquipmentSlot
 
-class BukkitNPCInteractEvent(private val instance: Humanoid) : HumanoidListener(instance) {
+public class BukkitNPCInteractEvent(private val instance: Humanoid) : HumanoidListener(instance) {
 
     @EventHandler
-    fun onInteract(event: PlayerInteractEntityEvent){
+    public fun onInteract(event: PlayerInteractEntityEvent){
         HumanoidLogger.info("PlayerUseUnknownEntityEvent called")
         val npc = instance.loader.npcManager.getNPCByEntityID(event.rightClicked.entityId) ?: return
 
