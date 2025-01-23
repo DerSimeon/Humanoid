@@ -1,0 +1,15 @@
+### Gradle ###
+.gradle
+build/
+
+### Kotlin ###
+.kotlin/
+
+### IntelliJ ###
+!.idea/copyright
+.idea/*.xml
+.idea/**/*.iml
+.idea/.gitignore
+
+### Jpenilla ###
+run/

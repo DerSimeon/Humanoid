@@ -1,0 +1,33 @@
+[versions]
+kotlin = "2.1.0"
+coroutines = "1.10.1"
+dokka = "2.0.0"
+shadow = "9.0.0-beta4"
+runtask = "2.3.1"
+resourcefactory = "1.2.0"
+gremlin = "0.0.6"
+paper = "1.21.4-R0.1-SNAPSHOT"
+userdev = "2.0.0-beta.14"
+triumph-cmds = "2.0.0-ALPHA-10"
+polaris = "1.0.0-SNAPSHOT"
+jansi = "2.4.1"
+
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+shadow = { id = "com.gradleup.shadow", version.ref = "shadow" }
+runtask = { id = "xyz.jpenilla.run-paper", version.ref = "runtask" }
+resourcefactory = { id = "xyz.jpenilla.resource-factory-paper-convention", version.ref = "resourcefactory" }
+gremlin = { id = "xyz.jpenilla.gremlin-gradle", version.ref = "gremlin" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+userdev = { id = "io.papermc.paperweight.userdev", version.ref = "userdev" }
+
+[libraries]
+paper = { module = "io.papermc.paper:paper-api", version.ref = "paper" }
+polaris = { module = "dev.triumphteam:polaris-hocon", version.ref = "polaris" }
+triumph-cmds = { module = "dev.triumphteam:triumph-cmd-bukkit", version.ref = "triumph-cmds" }
+triumph-coroutines = { module = "dev.triumphteam:triumph-cmd-kotlin-coroutines", version.ref = "triumph-cmds" }
+triumph-extensions = { module = "dev.triumphteam:triumph-cmd-kotlin-extensions", version.ref = "triumph-cmds" }
+jansi = { module = "org.fusesource.jansi:jansi", version.ref = "jansi" }
+stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
