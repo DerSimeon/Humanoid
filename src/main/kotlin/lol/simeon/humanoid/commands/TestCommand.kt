@@ -25,25 +25,18 @@
 package lol.simeon.humanoid.commands
 
 import dev.triumphteam.cmd.core.annotations.Command
-import kotlinx.coroutines.*
-import kotlinx.coroutines.future.asCompletableFuture
 import lol.simeon.humanoid.Humanoid
 import lol.simeon.humanoid.api.NPCAccount
 import lol.simeon.humanoid.api.NPCParameters
 import lol.simeon.humanoid.console.HumanoidLogger
 import lol.simeon.humanoid.npc.HumanoidNPC
 import lol.simeon.humanoid.npc.HumanoidPathPlayer
-import lol.simeon.humanoid.pathfinding.HumanoidPathFinder
-import lol.simeon.humanoid.pathfinding.HumanoidPathFindingState
+import lol.simeon.humanoid.pathfinding.multinode.PathFinder
 import lol.simeon.humanoid.runInSync
 import net.kyori.adventure.text.format.NamedTextColor
-import org.bukkit.Bukkit
-import org.bukkit.Particle
+import org.bukkit.Material
 import org.bukkit.entity.Player
-import java.lang.Runnable
 import java.util.UUID
-import java.util.concurrent.CompletableFuture
-import kotlin.coroutines.CoroutineContext
 
 @Command("humanoid")
 public class TestCommand(public val instance: Humanoid) {
@@ -68,13 +61,13 @@ public class TestCommand(public val instance: Humanoid) {
         val npc = instance.loader.npcManager.getNPCByName(name) ?: return
         val startLocation = npc.getLocation()
         val endLocation = player.location
-
-        val pathfinder = HumanoidPathFinder(player.world.name)
+        
+        val pathfinder = PathFinder()
         HumanoidLogger.info("Finding path for NPC ${npc.npcParameters.npcAccount.name} to $endLocation")
-        val result = pathfinder.findPathAsync(startLocation, endLocation)
+        val result = pathfinder.findPath(startLocation, endLocation)
 
         result.path.forEach {
-            player.world.spawnParticle(Particle.HAPPY_VILLAGER, it.toLocation(player.world), 1)
+            player.sendBlockChange(it, Material.REDSTONE_BLOCK.createBlockData())
         }
         
         val humanoidPathPlayer = HumanoidPathPlayer(instance, npc, result.path)

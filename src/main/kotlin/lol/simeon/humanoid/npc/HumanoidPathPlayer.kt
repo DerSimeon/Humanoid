@@ -42,6 +42,10 @@ public class HumanoidPathPlayer(private val instance: Humanoid, public val npc: 
     private val future: CompletableFuture<Unit> = CompletableFuture()
 
     public fun play(): CompletableFuture<Unit> {
+        if(path.isEmpty()) {
+            future.complete(null)
+            return future
+        }
         currentFrame = path[0]
         playing = true
         bukkitTask = Bukkit.getScheduler().runTaskTimer(instance, Runnable {

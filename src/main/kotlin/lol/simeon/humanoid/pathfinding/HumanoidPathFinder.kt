@@ -24,97 +24,12 @@
 
 package lol.simeon.humanoid.pathfinding
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.bukkit.Location
-import org.bukkit.util.Vector
-import java.util.*
-import kotlin.math.abs
 
-public class HumanoidPathFinder(private val world: String) {
-
-    private val directions = listOf(
-        Vector( 1.0, 0.0, 0.0),  // East
-        Vector( -1.0, 0.0, 0.0), // West
-        Vector( 0.0, 0.0, 1.0),  // South
-        Vector( 0.0, 0.0, -1.0)  // North
-    )
-
-    public suspend fun findPathAsync(start: Location, end: Location): HumanoidPathFindingResult {
-        return withContext(Dispatchers.Default) {
-            val openSet = PriorityQueue<HumanoidNode>(compareBy { it.fCost })
-            val closedSet = mutableSetOf<Location>()
-
-            val startNode = HumanoidNode(start, 0.0, heuristic(start, end), null)
-            openSet.add(startNode)
-
-            while (openSet.isNotEmpty()) {
-                val currentNode = openSet.poll()
-
-                if (currentNode.location.isSameBlock(end)) {
-                    return@withContext HumanoidPathFindingResult(
-                        HumanoidPathFindingState.COMPLETED,
-                        constructPath(currentNode)
-                    )
-                }
-
-                closedSet.add(currentNode.location)
-
-                for (direction in directions) {
-                    val neighborLocation = currentNode.location.clone().add(direction)
-                    val jumpLocation = neighborLocation.clone().add(0.0, 1.0, 0.0)
-
-                    if (closedSet.contains(neighborLocation)) continue
-
-                    val (isWalkable, isJumpable) = checkWalkableAndJumpable(neighborLocation, jumpLocation)
-
-                    if (!isWalkable && !isJumpable) continue
-
-                    val gCost = currentNode.gCost + currentNode.location.distance(neighborLocation)
-                    val hCost = heuristic(neighborLocation, end)
-                    val neighborNode = HumanoidNode(
-                        if (isJumpable) jumpLocation else neighborLocation,
-                        gCost,
-                        hCost,
-                        currentNode
-                    )
-
-                    if (openSet.none { it.location == neighborNode.location && it.gCost <= gCost }) {
-                        openSet.add(neighborNode)
-                    }
-                }
-            }
-
-            HumanoidPathFindingResult(HumanoidPathFindingState.FAILED)
-        }
-    }
-
-    private fun checkWalkableAndJumpable(neighbor: Location, jump: Location): Pair<Boolean, Boolean> {
-        val isNeighborSolid = neighbor.block.type.isSolid
-        val isJumpSolid = jump.block.type.isSolid
-        val isBelowNeighborSolid = neighbor.clone().add(0.0, -1.0, 0.0).block.type.isSolid
-        val isBelowJumpSolid = jump.clone().add(0.0, -1.0, 0.0).block.type.isSolid
-
-        val isWalkable = !isNeighborSolid && isBelowNeighborSolid
-        val isJumpable = !isJumpSolid && isBelowJumpSolid
-
-        return Pair(isWalkable, isJumpable)
-    }
-
-    private fun Location.isSameBlock(other: Location): Boolean {
-        return this.blockX == other.blockX && this.blockY == other.blockY && this.blockZ == other.blockZ
-    }
-
-    private fun constructPath(node: HumanoidNode): List<Location> {
-        val path = mutableListOf<Location>()
-        var currentNode: HumanoidNode? = node
-        while (currentNode != null) {
-            path.add(0, currentNode.location)
-            currentNode = currentNode.parent
-        }
-        return path
-    }
-    private fun heuristic(start: Location, end: Location): Double {
-        return abs(start.x - end.x) + abs(start.y - end.y) + abs(start.z - end.z)
-    }
+public interface HumanoidPathFinder {
+    
+    public suspend fun findPath(
+        start: Location,
+        end: Location
+    ): HumanoidPathFindingResult
 }
